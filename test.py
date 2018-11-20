@@ -13,23 +13,44 @@ class TestGraph(unittest.TestCase):
     # +----------------------------+           
     def setUp(self):
         # set up vertices
-        n1 = GraphNode(1)
-        n2 = GraphNode(2)
-        n3 = GraphNode(3)
-        n4 = GraphNode(4)
+        self.n1 = GraphNode(1)
+        self.n2 = GraphNode(2)
+        self.n3 = GraphNode(3)
+        self.n4 = GraphNode(4)
         # set up edges
-        n1._from(n4)
-        n1._to(n2)
-        n2._to(n3)
-        n2._to(n4)
-
-        self.graph = [n1, n2, n3, n4]
+        self.n4.to(self.n1)
+        self.n1.to(self.n2)
+        self.n2.to(self.n3)
+        self.n2.to(self.n4)
 
     def tearDown(self):
         pass
 
+    def test_topology(self):
+        self.assertIn(self.n2, self.n1._to)
+        self.assertIn(self.n3, self.n2._to)
+        self.assertIn(self.n4, self.n2._to)
+        self.assertIn(self.n1, self.n4._to)
+
+    # test bfs returning expected nodes and in expected order
     def test_bfs(self):
-        pass
+        n1Reachables = self.n1.bfs()
+        self.assertLess(n1Reachables.index(self.n2), n1Reachables.index(self.n3))
+        self.assertLess(n1Reachables.index(self.n2), n1Reachables.index(self.n4))
+        self.assertLess(n1Reachables.index(self.n3), n1Reachables.index(self.n1))
+
+        n2Reachables = self.n2.bfs()
+        self.assertLess(n2Reachables.index(self.n3), n2Reachables.index(self.n1))
+        self.assertLess(n2Reachables.index(self.n4), n2Reachables.index(self.n1))
+        self.assertLess(n2Reachables.index(self.n1), n2Reachables.index(self.n2))
+
+        n3Reachables = self.n3.bfs()
+        self.assertSequenceEqual(n3Reachables, [])
+
+        n4Reachables = self.n4.bfs()
+        self.assertLess(n4Reachables.index(self.n1), n4Reachables.index(self.n2))
+        self.assertLess(n4Reachables.index(self.n2), n4Reachables.index(self.n3))
+        self.assertLess(n4Reachables.index(self.n2), n4Reachables.index(self.n4))
 
     def test_dfs(self):
         pass
