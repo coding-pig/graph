@@ -22,6 +22,13 @@ class GraphNode:
 
         return toReturn 
 
-    # return set of all reachable nodes from self via dfs
+    # return list of all reachable nodes from self via dfs
     def dfs(self):
-        return set()
+        toOpen, toReturn = list(self._to), []
+        while len(toOpen) > 0:
+            top = toOpen.pop(0)
+            toReturn.append(top)
+            for to in top._to:
+                if to not in toReturn:
+                    toOpen.insert(0, to)
+        return toReturn

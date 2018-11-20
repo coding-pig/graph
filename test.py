@@ -53,7 +53,9 @@ class TestGraph(unittest.TestCase):
         self.assertLess(n4Reachables.index(self.n2), n4Reachables.index(self.n4))
 
     def test_dfs(self):
-        pass
+        n1Reachables = self.n1.dfs()
+        self.assertEqual(n1Reachables[0], self.n2)
+        self.assertEqual(n1Reachables.index(self.n4)+1, n1Reachables.index(self.n1))
 
 
 if __name__ == '__main__':
