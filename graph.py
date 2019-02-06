@@ -12,15 +12,19 @@ class GraphNode:
     def __find_reachable(self, dfs=True):
         def traverse():
             toOpen, toReturn = list(self._to), [] 
+            if dfs:
+                def _add(q, to):
+                    q.append(to)
+            else:
+                def _add(q, to):
+                    q.insert(0, to)
+
             while len(toOpen) > 0:
                 top = toOpen.pop(0)
                 toReturn.append(top)
                 for to in top._to:
                     if to not in toReturn: # O(N) check. Use a set to make it O(1)
-                        if dfs: # TODO remove runtime IF check
-                            toOpen.append(to) # queue
-                        else:
-                            toOpen.insert(0, to) # stack
+                        _add(toOpen, to)
 
             return toReturn 
         return traverse
