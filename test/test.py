@@ -1,5 +1,7 @@
-from graph import GraphNode
+from src import graph
 import unittest
+
+GraphNode = graph.GraphNode
 
 class TestGraph(unittest.TestCase):
 

@@ -5,6 +5,6 @@ install:
     - pip install -U pycodestyle
 script:
     - pycodestyle ./src 
-    - PYTHOHPATH=./src python test/test.py
+    - PYTHONPATH=./ python test/test.py
 matrix:
     fast_finish: true
