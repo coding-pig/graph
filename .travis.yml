@@ -6,3 +6,5 @@ install:
 script:
     - pycodestyle ./src 
     - PYTHOHPATH=./src python test/test.py
+matrix:
+    fast_finish: true
