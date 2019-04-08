@@ -1,6 +1,7 @@
 from src import toposort
 import unittest
 
+
 class TestTopoSort(unittest.TestCase):
     def setUp(self):
         pass
@@ -9,7 +10,7 @@ class TestTopoSort(unittest.TestCase):
         pass
 
     def test_toposort(self):
-        self.assertEqual(type(toposort.toposort), type(lambda:0))
+        self.assertEqual(type(toposort.toposort), type(lambda: 0))
         self.assertRaises(Exception, toposort.toposort)
 
 
